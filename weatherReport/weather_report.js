@@ -1,14 +1,19 @@
 function showweatherDetails(event) {
     event.preventDefault();
-    const city = document.getElementById('city').value;
-    const apiKey = '761d00423c75ac3625b5941669891785'; // Replace 'YOUR_API_KEY' with your actual API key
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+   
 
+    const lat = document.getElementById('lat').value;
+    const lon = document.getElementById('lon').value;
+
+    const apiKey = '0ac1161f151b8e9590e959e241fa347a'; // Replace 'YOUR_API_KEY' with your actual API key
+    
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    
     fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
       const weatherInfo = document.getElementById('weatherInfo');
-      weatherInfo.innerHTML = `<h2>Weather in ${data.name}</h2>
+      weatherInfo.innerHTML = `<h2>Weather in ${data.coord.lat}, ${data.coord.lon}</h2>
                               <p>Temperature: ${data.main.temp} &#8451;</p>
                               <p>Weather: ${data.weather[0].description}</p>`;
     })
